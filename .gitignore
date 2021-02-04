@@ -25,3 +25,4 @@ docker-compose.yml
 /src/backend/Homestead.json
 /src/backend/.vagrant
 /src/backend/.phpunit.result.cache
+.idea
