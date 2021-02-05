@@ -4,7 +4,15 @@
     <div class="container-fluid">
         <article>
             <div class="jumbotron">
-                <h1><a href="{{ route('blogs.edit', $blog->id) }}" class="small">Edit </a>{{ $blog->title }}</h1>
+                <h1>{{ $blog->title }}</h1>
+
+                <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-primary btn-sm float-left">Edit </a>
+
+                <form action="{{ route('blogs.delete', $blog->id) }}" method="POST">
+                    {{ method_field('delete') }}
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-danger btn-sm float-left">Delete</button>
+                </form>
             </div>
 
             <div class="col-md-12">
