@@ -11,4 +11,9 @@ class Blog extends Model
 
     protected $fillable = ['title', 'body'];
     protected $dates = ['deleted_at'];
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
