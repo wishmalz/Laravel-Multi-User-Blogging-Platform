@@ -12007,3 +12007,17 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+
+.btn-margin-right {
+    margin-right: 20px;
+}
+
+.btn {
+    border-radius: 0px;
+}
+
+.jumbotron {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -25px;
+}
