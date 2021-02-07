@@ -18,7 +18,24 @@
                     <label for="body">Body</label>
                     <textarea name="body" class="form-control">{{ $blog->body }}</textarea>
                 </div>
-                <button class="btn btn-primary" type="submit">Update blog</button>
+
+                <div class="form-group form-check form-check-inline">
+                    @foreach($blog->category as $category)
+                        <input type="checkbox" value="{{ $category->id }}" name="category_id[]"
+                               class="form-check-input" checked>
+                        <label for="" class="form-check-label btn-margin-right"> {{ $category->name }}</label>
+                    @endforeach
+                </div>
+                <div class="form-group form-check form-check-inline">
+                    @foreach($filtered as $category)
+                        <input type="checkbox" value="{{ $category->id }}" name="category_id[]"
+                               class="form-check-input">
+                        <label for="" class="form-check-label btn-margin-right"> {{ $category->name }}</label>
+                    @endforeach
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Update blog</button>
+                </div>
             </form>
         </div>
     </div>

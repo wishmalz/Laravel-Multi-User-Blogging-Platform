@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlogsCategoriesTable extends Migration
+class AddFeaturedImgColumnToBlogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateBlogsCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_category', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('blog_id');
-            $table->integer('category_id');
-            $table->timestamps();
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->string('featured_img')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateBlogsCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_category');
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->dropColumn('featured_img');
+        });
     }
 }

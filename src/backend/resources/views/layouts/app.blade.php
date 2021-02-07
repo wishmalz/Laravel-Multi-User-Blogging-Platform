@@ -23,7 +23,7 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
@@ -37,6 +37,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li><a class="nav-link" href="{{ route('admin.index') }}">Admin</a></li>
+                    <li><a class="nav-link" href="{{ route('categories.index') }}">Categories</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -76,9 +77,7 @@
     </nav>
 
     <main class="py-4">
-        <div class="container-fluid">
-            @yield('content')
-        </div>
+        <div class="container-fluid">@yield('content')</div>
     </main>
 </div>
 </body>
