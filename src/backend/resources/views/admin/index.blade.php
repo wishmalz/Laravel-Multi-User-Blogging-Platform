@@ -9,6 +9,9 @@
             <a href="{{ route('blogs.create') }}" class="text-white btn btn-primary btn-margin-right">Create Blog</a>
 
             <a href="{{ route('blogs.trash') }}" class="text-white btn btn-danger btn-margin-right">Trashed Blogs</a>
+
+            <a href="{{ route('categories.create') }}" class="text-white btn btn-success btn-margin-right">Create
+                categories</a>
         </div>
     </div>
 @endsection
