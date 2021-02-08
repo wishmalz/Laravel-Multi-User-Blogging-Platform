@@ -37,3 +37,6 @@ Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware([
 
 // categories
 Route::resource('categories', 'CategoryController');
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () { Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show'); Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload'); });
+
