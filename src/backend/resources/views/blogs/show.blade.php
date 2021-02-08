@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @include('partials.meta_dynamic')
+
     <div class="container-fluid">
         <article>
             <div class="jumbotron">
@@ -10,9 +13,9 @@
                         <img src="/images/featured_imgs/{{ $blog->featured_img ? : '' }}" alt="{{ str_limit
                         ($blog->title, 50)
                         }}" class="img-fluid">
-                        @endif
+                    @endif
                 </div>
-                
+
                 <div class="col-md-12">
                     <h1>{{ $blog->title }}</h1>
                 </div>

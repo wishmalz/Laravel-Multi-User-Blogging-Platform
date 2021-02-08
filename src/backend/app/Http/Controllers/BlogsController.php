@@ -25,6 +25,10 @@ class BlogsController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        // meta
+        $input['slug'] = str_slug($request->title);
+        $input['meta_title'] = str_limit($request->title, 55, '...');
+        $input['meta_description'] = str_limit($request->body, 155, '...');
         // img upload
         if ($file = $request->file('featured_img')) {
             $filename = uniqid('img', true). $file->getClientOriginalName();
