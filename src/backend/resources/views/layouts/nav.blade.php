@@ -13,7 +13,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li><a class="nav-link" href="{{ route('blogs') }}">Blogs <span class="badge
-                bg-dark text-white">{{ $blog->count() }}</span></a></li>
+                bg-dark text-white">{{ $blogs->count() }}</span></a></li>
                 <li><a class="nav-link" href="{{ route('admin.index') }}">Admin</a></li>
                 <li><a class="nav-link" href="{{ route('categories.index') }}">Categories</a></li>
             </ul>
