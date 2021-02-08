@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @include('partials.tinymce')
+
     <div class="container-fluid">
         <div class="jumbotron">
             <h1>Create a new blog</h1>
