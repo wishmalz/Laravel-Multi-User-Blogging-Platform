@@ -4,6 +4,15 @@
     <div class="container-fluid">
         <article>
             <div class="jumbotron">
+
+                <div class="col-md-12">
+                    @if($blog->featured_img)
+                        <img src="/images/featured_imgs/{{ $blog->featured_img ? : '' }}" alt="{{ str_limit
+                        ($blog->title, 50)
+                        }}" class="img-fluid">
+                        @endif
+                </div>
+                
                 <div class="col-md-12">
                     <h1>{{ $blog->title }}</h1>
                 </div>

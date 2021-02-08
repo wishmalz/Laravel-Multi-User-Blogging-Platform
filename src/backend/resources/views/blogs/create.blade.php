@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-md-12">
-            <form action="{{ route('blogs.store') }}" method="POST">
+            <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="title">Title</label>

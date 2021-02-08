@@ -25,6 +25,13 @@ class BlogsController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        // img upload
+        if ($file = $request->file('featured_img')) {
+            $filename = uniqid('img', true). $file->getClientOriginalName();
+            $file->move('images/featured_imgs/', $filename);
+            $input['featured_img'] = $filename;
+        }
+
         $blog = Blog::create($input);
         if ($request->category_id) {
             $blog->category()->sync($request->category_id);
@@ -50,7 +57,7 @@ class BlogsController extends Controller
         }
         $filtered = array_except($categories, $filteredCategories);
 
-        return view('blogs.edit', compact('blog','categories', 'filtered'));
+        return view('blogs.edit', compact('blog', 'categories', 'filtered'));
     }
 
     public function update(Request $request, $id)
