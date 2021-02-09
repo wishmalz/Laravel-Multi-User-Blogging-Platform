@@ -8,6 +8,12 @@ use App\Blog;
 
 class BlogsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('author', ['only' => ['create', 'store', 'edit', 'update']]);
+        $this->middleware('admin', ['only' => ['delete', 'trash', 'restore', 'permanentDelete']]);
+    }
+
     public function index()
     {
         $blogs = Blog::where('status', 1)->latest()->get();
