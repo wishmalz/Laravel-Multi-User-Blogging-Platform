@@ -18,10 +18,15 @@ class BlogsController extends Controller
         $this->middleware('admin', ['only' => ['delete', 'trash', 'restore', 'permanentDelete']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::where('status', 1)->latest()->paginate(2);
-
+        $blogs = Blog::where(function ($query) use ($request) {
+            if ($search = $request->get('search_str')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+            }
+        })
+            ->latest()
+            ->paginate(2);
         return view('blogs.index', compact('blogs'));
     }
 
@@ -48,7 +53,7 @@ class BlogsController extends Controller
         $input['meta_description'] = str_limit($request->body, 155, '...');
         // img upload
         if ($file = $request->file('featured_img')) {
-            $filename = uniqid('img', true). $file->getClientOriginalName();
+            $filename = uniqid('img', true) . $file->getClientOriginalName();
             $file->move('images/featured_imgs/', $filename);
             $input['featured_img'] = $filename;
         }
