@@ -21,6 +21,7 @@
             <ul class="navbar-nav ml-auto">
                 @if(Auth::user())
                     <li><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li><a class="nav-link" href="{{ route('mail.contact') }}">Contacts</a></li>
                 @endif
             <!-- Authentication Links -->
                 @guest
