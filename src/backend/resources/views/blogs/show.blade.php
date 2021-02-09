@@ -20,18 +20,20 @@
                     <h1>{{ $blog->title }}</h1>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="btn-group">
-                        <a href="{{ route('blogs.edit', $blog->id) }}"
-                           class="btn btn-primary btn-sm btn-margin-right">Edit </a>
+                @if(Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id))
+                    <div class="col-md-12">
+                        <div class="btn-group">
+                            <a href="{{ route('blogs.edit', $blog->id) }}"
+                               class="btn btn-primary btn-sm btn-margin-right">Edit </a>
 
-                        <form action="{{ route('blogs.delete', $blog->id) }}" method="POST">
-                            {{ method_field('delete') }}
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
+                            <form action="{{ route('blogs.delete', $blog->id) }}" method="POST">
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
 
             <div class="col-md-12">
