@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Mail\BlogPublished;
+use App\User;
 use Illuminate\Http\Request;
 use App\Blog;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class BlogsController extends Controller
@@ -53,6 +56,12 @@ class BlogsController extends Controller
         $blog = $request->user()->blogs()->create($input);
         if ($request->category_id) {
             $blog->category()->sync($request->category_id);
+        }
+
+        //mail
+        $users = User::all();
+        foreach ($users as $user) {
+            Mail::to($user->email)->queue(new BlogPublished($blog, $user));
         }
 
         Session::flash('blog_created_msg', 'Blog has been created!');
