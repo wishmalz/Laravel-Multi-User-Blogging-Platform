@@ -21,6 +21,7 @@
                     categories</a>
                 <a href="{{ route('admin.blogs') }}" class="text-white btn btn-primary btn-margin-right">Manage
                     blogs</a>
+                <a href="{{ route('users.index') }}" class="text-white btn btn-info btn-margin-right">Users</a>
             @endif
             @if(Auth::user() && Auth::user()->role_id === 2)
                 <a href="{{ route('blogs.create') }}" class="text-white btn btn-primary btn-margin-right">Create

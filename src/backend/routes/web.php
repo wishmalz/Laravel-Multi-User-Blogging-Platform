@@ -38,6 +38,7 @@ Route::get('/admin/blogs', 'AdminController@blogs')->name('admin.blogs');
 
 // categories
 Route::resource('categories', 'CategoryController');
+//users
+Route::resource('users', 'UserController');
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () { Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show'); Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload'); });
 
