@@ -36,7 +36,7 @@ class BlogsController extends Controller
             $input['featured_img'] = $filename;
         }
 
-        $blog = Blog::create($input);
+        $blog = $request->user()->blogs()->create($input);
         if ($request->category_id) {
             $blog->category()->sync($request->category_id);
         }

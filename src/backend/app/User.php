@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }
