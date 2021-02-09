@@ -11,6 +11,9 @@
 
         <div class="col-md-12">
             <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
+
+                @include('partials.errors')
+
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -27,12 +30,12 @@
                         <label for="" class="form-check-label btn-margin-right"> {{ $category->name }}</label>
                     @endforeach
                 </div>
-                
+
                 <div class="form-group">
                     <label for="featured_img">Featured Image</label>
                     <input type="file" name="featured_img" class="form-control">
                 </div>
-                
+
                 <div>
                     <button class="btn btn-primary" type="submit">Create a new blog</button>
                 </div>

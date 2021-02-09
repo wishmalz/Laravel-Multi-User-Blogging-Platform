@@ -30,6 +30,13 @@ class BlogsController extends Controller
 
     public function store(Request $request)
     {
+        //validate
+        $rules = [
+            'title' => ['required', 'min:20', 'max:150'],
+            'body' => ['required', 'min:120'],
+        ];
+        $this->validate($request, $rules);
+
         $input = $request->all();
         // meta
         $input['slug'] = str_slug($request->title);
@@ -50,9 +57,9 @@ class BlogsController extends Controller
         return redirect('/blogs');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::whereSlug($slug)->first();
 
         return view('blogs.show', compact('blog'));
     }
