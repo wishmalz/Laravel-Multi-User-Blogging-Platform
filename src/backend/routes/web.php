@@ -33,7 +33,12 @@ Route::patch('/blogs/{id}/update', 'BlogsController@update')->name('blogs.update
 Route::delete('/blogs/{id}/delete', 'BlogsController@delete')->name('blogs.delete');
 
 // admin routes
-Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware(['admin', 'auth']);
+Route::get('/dashboard', 'AdminController@index')->name('dashboard');
+Route::get('/admin/blogs', 'AdminController@blogs')->name('admin.blogs');
 
 // categories
 Route::resource('categories', 'CategoryController');
+//users
+Route::resource('users', 'UserController');
+
+

@@ -1,9 +1,21 @@
 @extends('layouts.app')
 
+@include('partials.meta_dynamic')
+
 @section('content')
+
     <div class="container-fluid">
         <article>
             <div class="jumbotron">
+
+                <div class="col-md-12">
+                    @if($blog->featured_img)
+                        <img src="/images/featured_imgs/{{ $blog->featured_img ? : '' }}" alt="{{ str_limit
+                        ($blog->title, 50)
+                        }}" class="img-fluid">
+                    @endif
+                </div>
+
                 <div class="col-md-12">
                     <h1>{{ $blog->title }}</h1>
                 </div>
@@ -23,7 +35,14 @@
             </div>
 
             <div class="col-md-12">
-                <p>{{ $blog->body }}</p>
+                {!! $blog->body !!}
+                @if($blog->user)
+                    Author: <a href="{{ route('users.show', $blog->user->name) }}">{{ $blog->user->name }}</a> |
+                    Posted: {{
+                    $blog->created_at->diffForHumans
+                    () }}
+                @endif
+                <br>
                 <strong>Categories: </strong>
                 @foreach($blog->category as $category)
                     <span><a href="{{ route('categories.show', $category->slug) }}">{{ $category->name }}</a></span>

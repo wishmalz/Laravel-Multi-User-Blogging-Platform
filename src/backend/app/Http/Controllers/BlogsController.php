@@ -8,9 +8,15 @@ use App\Blog;
 
 class BlogsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('author', ['only' => ['create', 'store', 'edit', 'update']]);
+        $this->middleware('admin', ['only' => ['delete', 'trash', 'restore', 'permanentDelete']]);
+    }
+
     public function index()
     {
-        $blogs = Blog::latest()->get();
+        $blogs = Blog::where('status', 1)->latest()->get();
 
         return view('blogs.index', compact('blogs'));
     }
@@ -24,8 +30,26 @@ class BlogsController extends Controller
 
     public function store(Request $request)
     {
+        //validate
+        $rules = [
+            'title' => ['required', 'min:20', 'max:150'],
+            'body' => ['required', 'min:120'],
+        ];
+        $this->validate($request, $rules);
+
         $input = $request->all();
-        $blog = Blog::create($input);
+        // meta
+        $input['slug'] = str_slug($request->title);
+        $input['meta_title'] = str_limit($request->title, 55, '...');
+        $input['meta_description'] = str_limit($request->body, 155, '...');
+        // img upload
+        if ($file = $request->file('featured_img')) {
+            $filename = uniqid('img', true). $file->getClientOriginalName();
+            $file->move('images/featured_imgs/', $filename);
+            $input['featured_img'] = $filename;
+        }
+
+        $blog = $request->user()->blogs()->create($input);
         if ($request->category_id) {
             $blog->category()->sync($request->category_id);
         }
@@ -33,9 +57,9 @@ class BlogsController extends Controller
         return redirect('/blogs');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::whereSlug($slug)->first();
 
         return view('blogs.show', compact('blog'));
     }
@@ -50,7 +74,7 @@ class BlogsController extends Controller
         }
         $filtered = array_except($categories, $filteredCategories);
 
-        return view('blogs.edit', compact('blog','categories', 'filtered'));
+        return view('blogs.edit', compact('blog', 'categories', 'filtered'));
     }
 
     public function update(Request $request, $id)
