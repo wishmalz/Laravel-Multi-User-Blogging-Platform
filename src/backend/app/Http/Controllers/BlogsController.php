@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Blog;
+use Illuminate\Support\Facades\Session;
 
 class BlogsController extends Controller
 {
@@ -53,6 +54,8 @@ class BlogsController extends Controller
         if ($request->category_id) {
             $blog->category()->sync($request->category_id);
         }
+
+        Session::flash('blog_created_msg', 'Blog has been created!');
 
         return redirect('/blogs');
     }
