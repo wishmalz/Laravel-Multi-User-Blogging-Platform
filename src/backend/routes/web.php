@@ -41,4 +41,7 @@ Route::resource('categories', 'CategoryController');
 //users
 Route::resource('users', 'UserController');
 
+Route::get('contact', 'MailController@contact')->name('mail.contact');
+Route::post('contact/send', 'MailController@send')->name('mail.send');
 
+Route::get('search', 'BlogsController@index')->name('search');

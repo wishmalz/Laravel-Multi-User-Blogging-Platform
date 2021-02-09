@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Mail\BlogPublished;
+use App\User;
 use Illuminate\Http\Request;
 use App\Blog;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class BlogsController extends Controller
 {
@@ -14,10 +18,15 @@ class BlogsController extends Controller
         $this->middleware('admin', ['only' => ['delete', 'trash', 'restore', 'permanentDelete']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::where('status', 1)->latest()->get();
-
+        $blogs = Blog::where(function ($query) use ($request) {
+            if ($search = $request->get('search_str')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+            }
+        })
+            ->latest()
+            ->paginate(2);
         return view('blogs.index', compact('blogs'));
     }
 
@@ -44,7 +53,7 @@ class BlogsController extends Controller
         $input['meta_description'] = str_limit($request->body, 155, '...');
         // img upload
         if ($file = $request->file('featured_img')) {
-            $filename = uniqid('img', true). $file->getClientOriginalName();
+            $filename = uniqid('img', true) . $file->getClientOriginalName();
             $file->move('images/featured_imgs/', $filename);
             $input['featured_img'] = $filename;
         }
@@ -53,6 +62,14 @@ class BlogsController extends Controller
         if ($request->category_id) {
             $blog->category()->sync($request->category_id);
         }
+
+        //mail
+        $users = User::all();
+        foreach ($users as $user) {
+            Mail::to($user->email)->queue(new BlogPublished($blog, $user));
+        }
+
+        Session::flash('blog_created_msg', 'Blog has been created!');
 
         return redirect('/blogs');
     }
