@@ -12,6 +12,8 @@
 
             <a href="{{ route('categories.create') }}" class="text-white btn btn-success btn-margin-right">Create
                 categories</a>
+
+            <a href="{{ route('admin.blogs') }}" class="text-white btn btn-primary btn-margin-right">Manage blogs</a>
         </div>
     </div>
 @endsection

@@ -34,6 +34,7 @@ Route::delete('/blogs/{id}/delete', 'BlogsController@delete')->name('blogs.delet
 
 // admin routes
 Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware(['admin', 'auth']);
+Route::get('/admin/blogs', 'AdminController@blogs')->name('admin.blogs')->middleware(['admin', 'auth']);
 
 // categories
 Route::resource('categories', 'CategoryController');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,5 +15,12 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index');
+    }
+
+    public function blogs()
+    {
+        $publishedBlogs = Blog::where('status', 1)->latest()->get();
+        $draftBlogs = Blog::where('status', 0)->latest()->get();
+        return view('admin.blogs', compact('publishedBlogs', 'draftBlogs'));
     }
 }
