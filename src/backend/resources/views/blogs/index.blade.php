@@ -22,5 +22,8 @@
             @endif
             <hr>
         @endforeach
+        <div class="text-center">
+            {!! $blogs->links() !!}
+        </div>
     </div>
 @endsection
